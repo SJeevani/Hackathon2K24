@@ -53,4 +53,20 @@ adminApp.get('/halls',verifyToken,expressAsyncHandler(async(req,res)=>{
     res.send({message:"all campus halls",payload:halls})
 }))
 
+
+adminApp.get('/allBookings',verifyToken,expressAsyncHandler(async(req,res)=>{
+    let bookings=await bookingsCollection.find().toArray()
+    res.send({message:"all bookings",payload:bookings})
+}))
+
+// Update booking status
+adminApp.patch('/bookings/:bookingId', verifyToken, expressAsyncHandler(async (req, res) => {
+    const bookingId = +(req.params.bookingId);
+    const newStatus = req.body.status;
+
+    await bookingsCollection.updateOne({ bookingId: bookingId }, { $set: { status: newStatus } });
+
+    res.send({ message: "Booking status updated successfully" });
+}));
+
 module.exports = adminApp;

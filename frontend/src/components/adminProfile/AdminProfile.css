@@ -1,0 +1,65 @@
+.admin-container {
+    padding: 20px;
+}
+
+.booking-cards {
+    display: flex;
+    flex-direction: column; /* Align items vertically */
+    gap: 20px;
+    align-items: flex-start; /* Align everything to the left */
+}
+
+.booking-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    width: 70%; /* Set a relative width */
+    max-width: 500px; /* Limit the max width for better readability */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    justify-content: space-between;
+}
+
+.booking-card:hover {
+    transform: translateY(-5px);
+}
+
+.admin-actions {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right within the card */
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.admin-actions .btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.admin-actions .btn-success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.admin-actions .btn-success:hover {
+    background-color: #45a049;
+}
+
+.admin-actions .btn-danger {
+    background-color: #f44336;
+    color: white;
+}
+
+.admin-actions .btn-danger:hover {
+    background-color: #e53935;
+}

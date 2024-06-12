@@ -45,17 +45,23 @@ userApp.post('/login', expressAsyncHandler(async (req, res) => {
 }));
 
 // get all campus halls
-userApp.get('/get-halls',verifyToken,expressAsyncHandler(async(req,res)=>{
-    let halls=await hallsCollection.find().toArray()
+userApp.get('/allHalls',verifyToken,expressAsyncHandler(async(req,res)=>{
+    const halls=await hallsCollection.find().toArray()
     // console.log(halls)
     res.send({message:"all campus halls",payload:halls})
 }))
 
 userApp.post('/book-seminar-hall',verifyToken,expressAsyncHandler(async(req,res)=>{
-    let bookCred=req.body;
+    const bookCred=req.body;
     bookCred.status='pending'
     await bookingsCollection.insertOne(bookCred)
     res.send({message:"Booking Successful"})
+}))
+
+userApp.get('/allBookings/:username',verifyToken,expressAsyncHandler(async(req,res)=>{
+    const username=req.params.username
+    const bookings=await bookingsCollection.find({name:username}).toArray()
+    res.send({message:"user bookings",payload:bookings})
 }))
 
 

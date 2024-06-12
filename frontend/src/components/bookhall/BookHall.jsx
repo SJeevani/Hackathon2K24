@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { axiosWithToken } from '../../axiosWithToken.jsx';
 import { useLocation,useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import './BookHall.css';
 
 function BookHall() {
@@ -10,6 +11,7 @@ function BookHall() {
     const location = useLocation(); 
     const currentDate = new Date();
     const formattedMaxDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 3, currentDate.getDate()).toISOString().split('T')[0];
+    const {  currentUser } = useSelector((state) => state.LoginReducer);
 
 
     const { state: hall } = location; 
@@ -17,10 +19,12 @@ function BookHall() {
     const onSubmit = async (formData) => {
         try {
             formData.hallName=hall.name
+            formData.name=currentUser.username
+            formData.bookingId=Date.now()
             const res = await axiosWithToken.post('http://localhost:4000/user-api/book-seminar-hall', formData);
-            console.log("Response: ", res); // Debugging line
+            // console.log("Response: ", res); 
             if (res.data.message === 'Booking Successful') {
-                // window.alert("Booking Request Sent");
+                window.alert("Booking Request Sent");
                 navigate('/user-profile/bookings');
             } else {
                 console.log("Server Message: ", res.data.message); // Debugging line
@@ -41,20 +45,28 @@ function BookHall() {
                         id="hallName"
                         value={hall.name}
                         readOnly
-                        // {...register('hallName')}
                         style={{ backgroundColor: '#e9ecef', color: '#6c757d' }}
                     />
-               
                 </div>
                 <div className="form-group fw-bold">
                     <label htmlFor="name">Name:</label>
                     <input
                         type="text"
                         id="name"
-                        {...register('name', { required: "Name is required" })}
-                        placeholder="Enter your name"
+                        value={currentUser.username}
+                        readOnly
+                        style={{ backgroundColor: '#e9ecef', color: '#6c757d' }}
                     />
-                    {errors.name && <p className="text-danger">{errors.name.message}</p>}
+                </div>
+                <div className="form-group fw-bold">
+                    <label htmlFor="name">Name of the event:</label>
+                    <input
+                        type="text"
+                        id="eventname"
+                        {...register('eventname', { required: "EventName is required" })}
+                        placeholder="Enter the event name"
+                    />
+                    {errors.eventname && <p className="text-danger">{errors.eventname.message}</p>}
                 </div>
                 <div className="form-group fw-bold">
                     <label htmlFor="email">Email:</label>

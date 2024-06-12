@@ -15,7 +15,7 @@ function Halls() {
         // Fetch halls data from the API
         const fetchHalls = async () => {
             try {
-                const response = await axiosWithToken.get('http://localhost:4000/user-api/get-halls');
+                const response = await axiosWithToken.get('http://localhost:4000/user-api/allHalls');
                 console.log(response.data); // Check the structure of the response data
                 setHalls(response.data.payload);
             } catch (error) {
@@ -26,9 +26,9 @@ function Halls() {
         fetchHalls();
     }, []);
 
-    if (!Array.isArray(halls)) {
-        return <div>Error: Unable to fetch halls data</div>;
-    }
+    // if (!Array.isArray(halls)) {
+    //     return <div>Error: Unable to fetch halls data</div>;
+    // }
 
     const readHallByHallId = (hallObj) => {
         navigate(`../${currentUser.userType}-profile/hall/${hallObj.hallId}`, { state: hallObj })
