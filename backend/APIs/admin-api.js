@@ -31,14 +31,19 @@ adminApp.post('/login', expressAsyncHandler(async (req, res) => {
         res.send({ message: "Invalid username" });
     } else {
         // check for password
-        if (dbAdmin.password !== adminCred.password) {
-            res.send({ message: "Invalid password" });
+        if (dbAdmin.email !== adminCred.email) {
+            res.send({ message: "Invalid email" });
         } else {
-            // create jwt token and encode it
-            const signedToken = jwt.sign({ username: dbAdmin.username }, process.env.SECRET_KEY, { expiresIn: '1d' });
-            // send res
-            res.send({ message: "Login success", token: signedToken, user: dbAdmin });
+            if (dbAdmin.password !== adminCred.password) {
+                res.send({ message: "Invalid password" });
+            } else {
+                // create jwt token and encode it
+                const signedToken = jwt.sign({ username: dbAdmin.username }, process.env.SECRET_KEY, { expiresIn: '1d' });
+                // send res
+                res.send({ message: "Login success", token: signedToken, user: dbAdmin });
+            }
         }
+
     }
 }));
 

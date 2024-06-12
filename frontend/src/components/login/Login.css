@@ -1,0 +1,25 @@
+/* Login.css */
+.MuiContainer-root {
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+}
+
+.MuiTypography-root {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+}
+
+.MuiButton-root {
+    background-color: #2196f3;
+    color: white;
+}
+
+.MuiButton-root:hover {
+    background-color: #1976d2;
+}
+
+.MuiTextField-root {
+    background-color: white;
+}
