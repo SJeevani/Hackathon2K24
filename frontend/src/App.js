@@ -8,6 +8,10 @@ import UserProfile from './components/userProfile/UserProfile';
 import AdminProfile from './components/adminProfile/AdminProfile'
 import StudentProfile from './components/studentProfile/StudentProfile'
 import Clubs from './components/clubs/Clubs';
+import BookHall from './components/bookhall/BookHall';
+import Halls from './components/halls/Halls';
+import Hall from './components/hall/Hall';
+import Bookings from './components/bookings/Bookings';
 
 function App() {
 
@@ -38,7 +42,23 @@ function App() {
           },
           {
             path:'user-profile',
-            element:<UserProfile/>
+            element:<UserProfile/>,
+          },
+          {
+            path:'user-profile/hall-booking',
+            element:<BookHall/>,
+          },
+          {
+            path:'user-profile/halls',
+            element:<Halls/>
+          },
+          {
+            path:'user-profile/hall',
+            element:<Hall/>
+          },
+          {
+            path:'user-profile/bookings',
+            element:<Bookings/>
           },
           {
             path:'admin-profile',

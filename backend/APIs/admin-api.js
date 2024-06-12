@@ -47,4 +47,10 @@ adminApp.post('/login', expressAsyncHandler(async (req, res) => {
     }
 }));
 
+// get all campus halls
+adminApp.get('/halls',verifyToken,expressAsyncHandler(async(req,res)=>{
+    let halls=await hallsCollection.find()
+    res.send({message:"all campus halls",payload:halls})
+}))
+
 module.exports = adminApp;

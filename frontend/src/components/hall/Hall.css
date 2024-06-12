@@ -1,0 +1,34 @@
+.hall-card {
+    margin-top: 50px;
+    margin-left: 150px;
+    width: 80%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .hall-image {
+    margin-top: 50px;
+    width: 40%;
+    height: auto;
+  }
+  
+  .hall-name {
+    margin-top: 16px;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .hall-description {
+    margin-top: 8px;
+    font-size: 1.1rem;
+  }
+  
+  .hall-details {
+    margin-top: 8px;
+  }
+  
+  .book-now-button {
+    display: block;
+    margin: 16px auto;
+  }
