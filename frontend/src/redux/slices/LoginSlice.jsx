@@ -9,7 +9,7 @@ export const LoginThunk = createAsyncThunk('login', async (userCredObj, thunkApi
       case 'student':
         res = await axios.post('http://localhost:4000/student-api/login', userCredObj);
         break;
-      case 'club':
+      case 'user':
         res = await axios.post('http://localhost:4000/user-api/login', userCredObj);
         break;
       case 'admin':

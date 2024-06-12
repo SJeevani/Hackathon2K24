@@ -20,7 +20,7 @@ function Login() {
         case 'student':
           navigate('/student-profile');
           break;
-        case 'club':
+        case 'user':
           navigate('/user-profile');
           break;
         case 'admin':
@@ -37,7 +37,7 @@ function Login() {
     email: yup.string().email('Invalid email').required('Email is required'),
     password: yup.string().required('Password is required'),
     username: yup.string().required('Username is required'),
-    userType: yup.string().oneOf(['student', 'club', 'admin'], 'Please select a valid user type').required('User type is required'),
+    userType: yup.string().oneOf(['student', 'user', 'admin'], 'Please select a valid user type').required('User type is required'),
   });
 
   // Formik form handling
@@ -50,6 +50,7 @@ function Login() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      console.log('Form Values:', values); // Debug log to check form values
       dispatch(LoginThunk(values));
     },
   });
@@ -84,7 +85,7 @@ function Login() {
               sx={{ justifyContent: 'center' }} // Center the radio buttons
             >
               <FormControlLabel value="student" control={<Radio />} label="Student" />
-              <FormControlLabel value="club" control={<Radio />} label="Club" />
+              <FormControlLabel value="user" control={<Radio />} label="User" />
               <FormControlLabel value="admin" control={<Radio />} label="Admin" />
             </RadioGroup>
           </FormControl>

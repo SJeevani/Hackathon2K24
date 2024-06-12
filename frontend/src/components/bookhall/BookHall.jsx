@@ -1,22 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import {axiosWithToken} from '../../axiosWithToken.jsx'
-import { useNavigate } from 'react-router-dom';
+import { axiosWithToken } from '../../axiosWithToken.jsx';
+import { useLocation,useNavigate } from 'react-router-dom';
 import './BookHall.css';
 
 function BookHall() {
     const { register, handleSubmit, formState: { errors } } = useForm(); // Get the useForm hook
     const navigate = useNavigate();
+    const location = useLocation(); 
     const currentDate = new Date();
     const formattedMaxDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 3, currentDate.getDate()).toISOString().split('T')[0];
 
+
+    const { state: hall } = location; 
+
     const onSubmit = async (formData) => {
-        console.log("Form Data Submitted: ", formData); // Debugging line
         try {
+            formData.hallName=hall.name
             const res = await axiosWithToken.post('http://localhost:4000/user-api/book-seminar-hall', formData);
             console.log("Response: ", res); // Debugging line
-            if (res.data.message === 'Booking successful') {
-                window.alert("Booking Request Sent");
+            if (res.data.message === 'Booking Successful') {
+                // window.alert("Booking Request Sent");
                 navigate('/user-profile/bookings');
             } else {
                 console.log("Server Message: ", res.data.message); // Debugging line
@@ -30,6 +34,18 @@ function BookHall() {
         <div className="booking-form-container">
             <h2 className='pr-3'>Book a Seminar Hall</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="form-group fw-bold">
+                <label htmlFor="hallName">Hall Name:</label>
+                    <input
+                        type="text"
+                        id="hallName"
+                        value={hall.name}
+                        readOnly
+                        // {...register('hallName')}
+                        style={{ backgroundColor: '#e9ecef', color: '#6c757d' }}
+                    />
+               
+                </div>
                 <div className="form-group fw-bold">
                     <label htmlFor="name">Name:</label>
                     <input
@@ -139,10 +155,9 @@ function BookHall() {
                     {errors.organizingClub && <p className="text-danger">{errors.organizingClub.message}</p>}
                 </div>
                 <div className="form-group fw-bold">
-                    <label htmlFor="estimation"> Estimation of No of Attendees:</label>
+                    <label htmlFor="estimation">Estimation of No of Attendees:</label>
                     <textarea
                         id="estimation"
-                        // type='number'
                         {...register('estimation', { required: "It is required" })}
                         placeholder="Enter the estimation of attendees"
                     />

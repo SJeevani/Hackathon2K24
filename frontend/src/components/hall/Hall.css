@@ -1,34 +1,76 @@
+/* Hall.css */
 .hall-card {
-    margin-top: 50px;
-    margin-left: 150px;
-    width: 80%;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .hall-image {
-    margin-top: 50px;
-    width: 40%;
-    height: auto;
-  }
-  
-  .hall-name {
-    margin-top: 16px;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .hall-description {
-    margin-top: 8px;
-    font-size: 1.1rem;
-  }
-  
-  .hall-details {
-    margin-top: 8px;
-  }
-  
-  .book-now-button {
-    display: block;
-    margin: 16px auto;
-  }
+  margin-top: 50px;
+  margin-left: 150px;
+  width: 80%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: left; /* Ensure all content is left-aligned */
+}
+
+.image-slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hall-image {
+  width: 100%; /* Ensure image takes full width of the container */
+  height: 400px; /* Set a fixed height for all images */
+  object-fit: cover; /* Ensure images cover the container without distortion */
+}
+
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  padding: 8px;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-arrow:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+}
+
+.hall-name {
+  margin-top: 16px;
+  margin-bottom: 20px;
+  font-size: 2rem; /* Increase font size */
+  font-weight: bold;
+  line-height: 1.5; /* Increase line spacing */
+}
+
+.hall-description {
+  margin-top: 8px;
+  font-size: 1.5rem; /* Increase font size */
+  line-height: 1.6; /* Increase line spacing */
+}
+
+.hall-details {
+  margin-top: 8px;
+}
+
+.hall-details .MuiTypography-root {
+  font-size: 1.2rem; /* Increase font size */
+  line-height: 1.8; /* Increase line spacing */
+}
+
+.book-now-button {
+  display: block;
+  margin: 16px auto;
+  width: 10%;
+  padding: 5px;
+}

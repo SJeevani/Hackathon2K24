@@ -32,7 +32,7 @@ function NavBar() {
                   </Button>
                 </>
               )}
-              {currentUser.userType === 'club' && (
+              {currentUser.userType === 'user' && (
                 <>
                   <Button color="inherit" component={NavLink} to="/user-profile/halls" sx={{ mx: 1 }}>
                     Available Halls

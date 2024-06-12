@@ -46,7 +46,8 @@ userApp.post('/login', expressAsyncHandler(async (req, res) => {
 
 // get all campus halls
 userApp.get('/get-halls',verifyToken,expressAsyncHandler(async(req,res)=>{
-    let halls=await hallsCollection.find()
+    let halls=await hallsCollection.find().toArray()
+    // console.log(halls)
     res.send({message:"all campus halls",payload:halls})
 }))
 
@@ -56,6 +57,7 @@ userApp.post('/book-seminar-hall',verifyToken,expressAsyncHandler(async(req,res)
     await bookingsCollection.insertOne(bookCred)
     res.send({message:"Booking Successful"})
 }))
+
 
 // export user  App
 module.exports = userApp

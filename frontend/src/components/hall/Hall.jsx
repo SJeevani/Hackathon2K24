@@ -1,80 +1,102 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, Button } from '@mui/material';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Hall.css'; // Import CSS file for custom styling
-import { NavLink } from 'react-router-dom';
 
 function Hall() {
-  // Sample hall data
-  const hall = {
-    name: "KS Auditorium",
-    hallId: "AUD001",
-    capacity: 500,
-    amenities: [
-      "Air Conditioning",
-      "High-Quality Sound System",
-      "Projector and Screen",
-      "Wi-Fi",
-      "Stage Lighting",
-      "Comfortable Seating",
-      "Green Room",
-      "Backstage Area"
-    ],
-    contactNumbers: [
-      "+91-40-1234-5678",
-      "+91-40-8765-4321"
-    ],
-    description: "KS Auditorium at VNRVJIET is a premier venue for hosting large-scale events, including academic conferences, seminars, cultural performances, and guest lectures. The auditorium features state-of-the-art audio-visual equipment, ensuring a high-quality experience for both presenters and attendees. The spacious and well-ventilated hall is designed to accommodate up to 500 guests comfortably.",
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { state: hall } = location; // Retrieve hall details from state
+
+  // If hall data is not available in state, set default values to avoid undefined errors
+  const defaultHall = {
+    name: "",
+    hallId: "",
+    capacity: 0,
+    amenities: [],
+    contactNumbers: [],
+    description: "",
     additionalInfo: {
-      location: "Main Campus",
-      accessibility: "Wheelchair accessible with reserved seating",
-      parking: "Large parking area available nearby",
-      nearbyFacilities: [
-        "Cafeteria",
-        "Restrooms",
-        "Information Desk"
-      ]
+      location: "",
+      accessibility: "",
+      parking: "",
+      nearbyFacilities: []
     }
+  };
+
+  // Set hall details to default values if not available
+  const hallData = hall || defaultHall;
+
+  // Images for scrolling
+  const images = [
+    hall.Image1,hall.Image2,hall.Image3 
+  ];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  const goToPreviousImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+  };
+
+  const goToNextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+  };
+
+  const handleBookNow = () => {
+    navigate('/user-profile/hall-booking',{state:hallData});
   };
 
   return (
     <Card className="hall-card">
-      {/* Big Picture */}
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbDTn5vZvi3iCDADrJKdY0N2crpk-e9YCJ3g&s" alt="Hall" className="hall-image" />
+      {/* Image Slider */}
+      <div className="image-slider">
+        <img src={images[currentImageIndex]} alt="Hall" className="hall-image" />
+        <button className="nav-arrow left" onClick={goToPreviousImage}>&#10094;</button>
+        <button className="nav-arrow right" onClick={goToNextImage}>&#10095;</button>
+      </div>
 
       {/* Hall Details */}
       <CardContent>
-        <Typography variant="h5" component="h2" className="hall-name">
-          {hall.name}
+        <Typography variant="h4" component="h2" className="hall-name">
+          {hallData.name}
         </Typography>
         <Typography variant="body1" color="textSecondary" className="hall-description">
-          {hall.description}
+          {hallData.description}
         </Typography>
         <div className="hall-details">
           <Typography variant="body2" color="textSecondary">
-            <strong>Capacity:</strong> {hall.capacity}
+            <strong>Capacity:</strong> {hallData.capacity}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            <strong>Contact Numbers:</strong> {hall.contactNumbers.join(', ')}
+            <strong>Contact Numbers:</strong> {hallData.contactNumbers.join(', ')}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            <strong>Location:</strong> {hall.additionalInfo.location}
+            <strong>Location:</strong> {hallData.additionalInfo.location}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            <strong>Accessibility:</strong> {hall.additionalInfo.accessibility}
+            <strong>Accessibility:</strong> {hallData.additionalInfo.accessibility}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            <strong>Parking:</strong> {hall.additionalInfo.parking}
+            <strong>Parking:</strong> {hallData.additionalInfo.parking}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            <strong>Nearby Facilities:</strong> {hall.additionalInfo.nearbyFacilities.join(', ')}
+            <strong>Nearby Facilities:</strong> {hallData.additionalInfo.nearbyFacilities.join(', ')}
           </Typography>
         </div>
       </CardContent>
 
       {/* Book Now Button */}
       <CardContent>
-        <Button variant="contained" color="primary" className="book-now-button">
-          <NavLink to='/user-profile/hall-booking'className='text-white'>Book Now</NavLink>
+        <Button variant="contained" color="primary" className="book-now-button" onClick={handleBookNow}>
+          Book Now
         </Button>
       </CardContent>
     </Card>

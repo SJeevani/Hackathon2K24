@@ -53,7 +53,7 @@ function App() {
             element:<Halls/>
           },
           {
-            path:'user-profile/hall',
+            path:'user-profile/hall/:hallId',
             element:<Hall/>
           },
           {
