@@ -25,21 +25,11 @@ function NavBar() {
         <Box sx={{ display: 'flex', flexGrow: 1 }}>
           {loginUserStatus ? (
             <>
-              {currentUser.userType === 'student' && (
-                <>
-                  <Button color="inherit" component={NavLink} to="/student-profile" sx={{ mx: 1 }}>
-                    Update Profile
-                  </Button>
-                </>
-              )}
               {currentUser.userType === 'user' && (
                 <>
                   <Button color="inherit" component={NavLink} to="/user-profile/halls" sx={{ mx: 1 }}>
                     Available Halls
                   </Button>
-                  {/* <Button color="inherit" component={NavLink} to="/user-profile/hall-booking" sx={{ mx: 1 }}>
-                    Hall Booking
-                  </Button> */}
                   <Button color="inherit" component={NavLink} to="/user-profile" sx={{ mx: 1 }}>
                     Profile
                   </Button>
@@ -50,10 +40,10 @@ function NavBar() {
               )}
               {currentUser.userType === 'admin' && (
                 <>
-                  <Button color="inherit" component={NavLink} to="/admin-bookings" sx={{ mx: 1 }}>
+                  <Button color="inherit" component={NavLink} to="/admin-profile" sx={{ mx: 1 }}>
                     Bookings
                   </Button>
-                  <Button color="inherit" component={NavLink} to="/admin-halls" sx={{ mx: 1 }}>
+                  <Button color="inherit" component={NavLink} to="/admin-profile/halls" sx={{ mx: 1 }}>
                     Halls
                   </Button>
                 </>

@@ -64,14 +64,6 @@ userApp.get('/allBookings/:username',verifyToken,expressAsyncHandler(async(req,r
     res.send({message:"user bookings",payload:bookings})
 }))
 
-// userApp.get('/get-booked-dates',verifyToken, async (req, res) => {
-//     try {
-//         const bookedDates = await Booking.find({ status: 'Accepted' }).select('date -_id');
-//         res.json({ bookedDates: bookedDates.map(date => date.toISOString().split('T')[0]) });
-//     } catch (error) {
-//         res.status(500).json({ message: "Error fetching booked dates", error });
-//     }
-// });
 
 userApp.get('/accepted-bookings', verifyToken, expressAsyncHandler(async (req, res) => {
     try {
@@ -82,7 +74,10 @@ userApp.get('/accepted-bookings', verifyToken, expressAsyncHandler(async (req, r
     }
 }));
 
-
+userApp.get('/allBookings',verifyToken,expressAsyncHandler(async(req,res)=>{
+    let bookings=await bookingsCollection.find({status:'Accepted'}).sort({date:1}).toArray()
+    res.send({message:"all bookings",payload:bookings})
+}))
 
 
 // export user  App

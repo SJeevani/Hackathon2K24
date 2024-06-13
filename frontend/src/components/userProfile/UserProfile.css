@@ -1,104 +1,70 @@
 .user-profile {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Ensure items are spaced evenly */
     padding: 50px;
-}
-
-.auditorium-card {
-    width: 60%;
-    height: auto;
-    overflow-y: auto;
-    border-radius: 8px;
-}
-
-.upcoming-events-card {
-    width: 35%;
-    height: auto;
-    overflow-y: auto;
-    border-radius: 8px;
-}
-
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table th {
-    background-color: #370101c9;
-    color: #ffffff;
-    font-weight: bold;
-}
-
-.table .MuiTableCell-root {
-    padding: 12px;
-    text-align: left;
-}
-
-.table .MuiTableCell-root:last-child {
-    text-align: right;
-}
-
-.table .MuiTableRow-root:nth-of-type(even) {
-    background-color: #3b020216;
-}
-
-.upcoming-events-card p {
-    margin: 5px 0;
-    color: #333;
-}
-
-.auditorium-card .MuiCardContent-root,
-.upcoming-events-card .MuiCardContent-root {
-    padding: 15px;
-}
-
-.auditorium-card h2,
-.upcoming-events-card h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.auditorium-card p,
-.upcoming-events-card p {
-    font-size: 14px;
-    line-height: 1.3;
-    color: #555;
-}
-
-.event-card {
-    margin-bottom: 5px;
-    background-color: #fffde7;
-    border: 1px solid #2301012b;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    padding: 0px;
-}
-
-.event-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.event-card .MuiCardContent-root {
-    padding-top: 5px;
-}
-
-.event-content {
+  }
+  
+  .profile-image {
+    width: 50%; /* Adjust width of the image container as needed */
+  }
+  
+  .profile-image img {
+    width: 100%; /* Ensure image fills its container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow to the image */
+  }
+  
+  .upcoming-events {
+    width: 40%; /* Adjust width of upcoming events container */
+  }
+  
+  .upcoming-events-card {
+    height: auto; /* Set height to auto */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
+    background-color: #dae9f014; /* Light amber background */
+    border: 1px solid #201601; /* Light orange border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    border-radius: 8px; /* Rounded corners */
+  }
+  
+  .event-card {
+    margin-top: 10px; /* Add some space between event cards */
+    background-color: #197edc47; /* Light yellow background */
+    border: 1px solid #2301012b; /* Light yellow border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    border-radius: 8px; /* Rounded corners */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition for hover effect */
+  }
+  
+  .event-card:hover {
+    transform: scale(1.02); /* Slightly enlarge the card on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a more pronounced shadow on hover */
+  }
+  
+  .event-content {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100%;
-}
-
-.event-name {
-    flex-grow: 1;
-    margin-bottom: 10px;
-}
-
-.event-time {
-    margin-left: 10px;
-    margin-top: -15px;
-}
+    justify-content: center; /* Align content horizontally */
+    align-items: center; /* Align content vertically */
+    flex-direction: column; /* Stack content vertically */
+    height: 100%; /* Fill the entire height of the card */
+    color: whitesmoke;
+  }
+  
+  .event-name {
+    margin: 10px 0px; /* Adjust margin for spacing */
+    font-size: 1.5rem; /* Increase font size */
+  }
+  
+  .event-details {
+    display: flex;
+    flex-direction: column; /* Stack details vertically */
+    align-items: center; /* Center details horizontally */
+  }
+  
+  .event-time,
+  .event-organizer {
+    margin: 5px 0; /* Adjust margin for spacing */
+    font-size: 1rem; /* Set font size */
+    color: #555; /* Darker text color */
+  }

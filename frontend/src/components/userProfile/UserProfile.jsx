@@ -1,59 +1,32 @@
-import React from 'react';
-import { Card, CardContent, Typography, Table, TableContainer, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
-import './UserProfile.css'
-
-// Component for displaying auditoriums
-function AuditoriumCard({ auditoriums }) {
-  return (
-    <Card sx={{ bgcolor: '#e0f7fa', border: '1px solid #011a1a', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '8px', width: '60%', height: 'auto', overflowY: 'auto' }}>
-      <CardContent>
-        <Typography variant="h5" component="h2" sx={{ color: '#333', marginBottom: '30px' }}>
-          Auditoriums
-        </Typography>
-        <TableContainer>
-          <Table sx={{ width: '100%', borderCollapse: 'collapse' }}>
-            <TableHead>
-              <TableRow>
-                <TableCell sx={{ backgroundColor: '#370101c9', color: '#ffffff', fontWeight: 'bold' }}>Room Name</TableCell>
-                <TableCell align="right" sx={{ backgroundColor: '#370101c9', color: '#ffffff', fontWeight: 'bold' }}>Capacity</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {auditoriums.map((auditorium, index) => (
-                <TableRow key={index}>
-                  <TableCell>{auditorium.name}</TableCell>
-                  <TableCell align="right">{auditorium.capacity}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </CardContent>
-    </Card>
-  );
-}
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent, Typography } from '@mui/material';
+import './UserProfile.css'; // Import CSS file for custom styling
+import {axiosWithToken} from '../../axiosWithToken.jsx' // Import axios for making HTTP requests
+import table from '../../images/table.jpg'
 
 // Component for displaying upcoming events
 function UpcomingEventsCard({ upcomingEvents }) {
   return (
-    <Card sx={{ bgcolor: '#fff8e1', border: '1px solid #201601', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '8px', width: '35%', height: 'auto', overflowY: 'auto' }}>
+    <Card className="upcoming-events-card">
       <CardContent>
-        <Typography variant="h5" component="h2" sx={{ color: '#333', marginBottom: '30px' }}>
+        <Typography variant="h5" component="h2">
           Upcoming Events
         </Typography>
         {upcomingEvents.map((event, index) => (
-          <Card key={index} sx={{ marginBottom: '5px', bgcolor: '#fffde7', border: '1px solid #2301012b', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', borderRadius: '8px', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out', '&:hover': { transform: 'scale(1.02)', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' } }}>
-            <CardContent sx={{ paddingTop: '5px' }}>
-              <div sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', height: '100%' }}>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1, marginBottom: '10px' }}>
-                  {event.name}
+          <Card key={index} className="event-card">
+            <CardContent className="event-content">
+              <div className="event-info">
+                <Typography variant="h6" component="div" className="event-name">
+                  {event.eventname}
                 </Typography>
-                <Typography variant="body1" component="div" sx={{ marginLeft: '10px', marginTop: '-15px' }}>
-                  {event.date} | {event.time}
-                </Typography>
-                <Typography variant="body1" component="div" sx={{ fontSize: '0.5em', color: '#333' }}>
-                  Organized by: {event.clubName}
-                </Typography>
+                <div className="event-details">
+                  <Typography variant="body1" component="div" className="event-time">
+                    {event.date} | {event.duration} day/days
+                  </Typography>
+                  <Typography variant="body1" component="div" className="event-organizer">
+                    Organized by: {event.organizingClub}
+                  </Typography>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -64,30 +37,41 @@ function UpcomingEventsCard({ upcomingEvents }) {
 }
 
 function UserProfile() {
-  // Sample data for upcoming events
-  const upcomingEvents = [
-    { name: 'Event 1', date: 'DD/MM/YYYY', time: '10:00 AM', clubName: 'Music Club' },
-    { name: 'Event 2', date: 'DD/MM/YYYY', time: '2:00 PM', clubName: 'Art Club' },
-    { name: 'Event 3', date: 'DD/MM/YYYY', time: '6:00 PM', clubName: 'Dance Club' },
-    // Add more event entries as needed
-  ];
+  const [upcomingEvents, setUpcomingEvents] = useState([]); // State to store upcoming events
 
-  // Sample data for auditoriums
-  const auditoriums = [
-    { name: 'KS Auditorium', capacity: 100 },
-    { name: 'B Block Seminar Hall', capacity: 150 },
-    { name: 'Auditorium 3', capacity: 200 },
-    { name: 'Auditorium 3', capacity: 200 },
-    { name: 'Auditorium 3', capacity: 200 },
-    // Add more auditorium entries as needed
-  ];
+  useEffect(() => {
+    // Function to fetch upcoming events from backend
+    const fetchUpcomingEvents = async () => {
+      try {
+        const response = await axiosWithToken.get('http://localhost:4000/user-api/allBookings'); // Replace with your actual API endpoint
+        if (response.data.payload) {
+          // Sort events by date in ascending order (assuming backend already does this)
+          const sortedEvents = response.data.payload.sort((a, b) => new Date(a.date + ' ' + a.time) - new Date(b.date + ' ' + b.time));
+          // Set state with sorted upcoming events
+          setUpcomingEvents(sortedEvents);
+        } else {
+          console.error('No events found in response payload');
+        }
+      } catch (error) {
+        console.error('Error fetching upcoming events:', error.message);
+      }
+    };
+
+    // Fetch upcoming events when component mounts
+    fetchUpcomingEvents();
+  }, []); // Empty dependency array ensures this effect runs only once on mount
 
   return (
     <div className="user-profile">
-      {/* Display Auditorium Card */}
-      <AuditoriumCard auditoriums={auditoriums} />
-      {/* Display Upcoming Events Card */}
-      <UpcomingEventsCard upcomingEvents={upcomingEvents} />
+      {/* Image on the left */}
+      <div className="profile-image">
+        <img src={table} alt="Profile" />
+      </div>
+      
+      {/* Upcoming Events on the right */}
+      <div className="upcoming-events">
+        <UpcomingEventsCard upcomingEvents={upcomingEvents} />
+      </div>
     </div>
   );
 }

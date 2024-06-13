@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, Button } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import './Hall.css'; // Import CSS file for custom styling
 
 function Hall() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { state: hall } = location; // Retrieve hall details from state
+  const { state: hall } = location;
+  const { currentUser } = useSelector((state) => state.LoginReducer);
 
   // If hall data is not available in state, set default values to avoid undefined errors
   const defaultHall = {
@@ -94,11 +96,13 @@ function Hall() {
       </CardContent>
 
       {/* Book Now Button */}
+      {currentUser.userType==='user' && 
       <CardContent>
-        <Button variant="contained" color="primary" className="book-now-button" onClick={handleBookNow}>
-          Book Now
-        </Button>
-      </CardContent>
+      <Button variant="contained" color="primary" className="book-now-button" onClick={handleBookNow}>
+        Book Now
+      </Button>
+    </CardContent>}
+      
     </Card>
   );
 }

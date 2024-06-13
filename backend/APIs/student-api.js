@@ -67,5 +67,11 @@ studentApp.post('/login', expressAsyncHandler(async (req, res) => {
     }
 }))
 
+
+studentApp.get('/allBookings',verifyToken,expressAsyncHandler(async(req,res)=>{
+    let bookings=await bookingsCollection.find({status:'Accepted'}).sort({date:1}).toArray()
+    res.send({message:"all bookings",payload:bookings})
+}))
+
 // export user  App
 module.exports = studentApp

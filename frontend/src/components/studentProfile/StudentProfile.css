@@ -1,0 +1,63 @@
+.student-profile {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    padding: 50px;
+  }
+  
+  .upcoming-events {
+    width: 80%; /* Adjust width of upcoming events container */
+    max-width: 800px; /* Limit maximum width for better responsiveness */
+    margin: 0 auto; /* Center the container horizontally */
+  }
+  
+  .upcoming-events-card {
+    margin-top: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .event-card {
+    margin-top: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  .event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .event-content {
+    padding: 16px;
+  }
+  
+  .event-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .event-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .event-time {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .event-organizer {
+    font-size: 0.9rem;
+    color: #777;
+  }
+  
+  .apply-button {
+    margin-top: 10px;
+  }
+  

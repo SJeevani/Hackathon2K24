@@ -65,6 +65,14 @@ function App() {
             element:<AdminProfile/>
           },
           {
+            path:'admin-profile/halls',
+            element:<Halls/>
+          },
+          {
+            path:'admin-profile/hall/:hallId',
+            element:<Hall/>
+          },
+          {
             path:'student-profile',
             element:<StudentProfile/>
           }
