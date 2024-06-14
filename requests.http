@@ -1,2 +1,5 @@
 ###
 GET http://localhost:4000/user-api/get-halls
+
+###
+POST http://localhost:4000/user-api/login
